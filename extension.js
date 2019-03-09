@@ -43,25 +43,25 @@
           rank: 'manager',
           type: 'startsWith',
           functionality: function (chat, cmd) {
-				if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-				if (!bot.commands.executable(this.rank, chat)) return void (0);
-				else {
-					var msg = chat.message;
-					var vol;
-					if (msg.length === cmd.length) {
-						vol = API.getVolume();
-						API.sendChat("/me Current volume: " + String(vol));
-					}
-					else {
-						vol = msg.substring(cmd.length + 1);
-						if (isNaN(vol)) return API.sendChat("/me Invalid volume specified.");
-						else {
-							API.setVolume(vol);
-							API.sendChat("/me Volume set to: " + String(vol));
-						}
-					}
-				}
+	    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+            if (!bot.commands.executable(this.rank, chat)) return void (0);
+            else {
+              var msg = chat.message;
+              var vol;
+              if (msg.length === cmd.length) {
+                vol = API.getVolume();
+                API.sendChat("/me Current volume: " + String(vol));
+              }
+              else {
+                vol = msg.substring(cmd.length + 1);
+                if (isNaN(vol)) return API.sendChat("/me Invalid volume specified.");
+                else {
+                  API.setVolume(vol);
+                  API.sendChat("/me Volume set to: " + String(vol));
+                }
+              }
             }
+          }
         };
         
         // Load the chat package again to account for any changes
