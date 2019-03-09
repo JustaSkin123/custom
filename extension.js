@@ -50,14 +50,22 @@
               var vol;
               if (msg.length === cmd.length) {
                 vol = API.getVolume();
-                API.sendChat("/me Current volume: " + String(vol));
+                API.sendChat(subChat(basicBot.chat.currentVolume, {
+			name: chat.un,
+			volume: vol
+		}));
               }
               else {
                 vol = msg.substring(cmd.length + 1);
-                if (isNaN(vol)) return API.sendChat("/me Invalid volume specified.");
+                if (isNaN(vol)) return API.sendChat(subChat(basicBot.chat.invalidVolume, {
+			name: chat.un
+		}));
                 else {
                   API.setVolume(vol);
-                  API.sendChat("/me Volume set to: " + String(vol));
+                  API.sendChat(subChat(basicBot.chat.volumeSetTo, {
+			  name: chat.un,
+			  volume: vol
+		  }));
                 }
               }
             }
