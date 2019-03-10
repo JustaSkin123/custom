@@ -24,6 +24,14 @@
           window.bot.chatUtilities.spam.push(spamWords[i]);
         }
 	    
+	var custom = {
+          chat: {
+            "currentVolume": "\/me [@%%NAME%%] Current volume: %%VOLUME%%",
+            "invalidVolume": "\/me [@%%NAME%%] Invalid volume specified.",
+            "volumeSetTo": "\/me [@%%NAME%%] Volume set to: %%VOLUME%%"
+	  }
+	}
+	    
 	var subChat = function(chat, obj) {
           if (typeof chat === 'undefined') {
             API.chatLog('There is a chat text missing.');
@@ -65,19 +73,19 @@
               var vol;
               if (msg.length === cmd.length) {
                 vol = API.getVolume();
-                API.sendChat(subChat(basicBot.chat.currentVolume, {
+                API.sendChat(subChat(custom.chat.currentVolume, {
 			name: chat.un,
 			volume: vol
 		}));
               }
               else {
                 vol = msg.substring(cmd.length + 1);
-                if (isNaN(vol)) return API.sendChat(subChat(basicBot.chat.invalidVolume, {
+                if (isNaN(vol)) return API.sendChat(subChat(custom.chat.invalidVolume, {
 			name: chat.un
 		}));
                 else {
                   API.setVolume(vol);
-                  API.sendChat(subChat(basicBot.chat.volumeSetTo, {
+                  API.sendChat(subChat(custom.chat.volumeSetTo, {
 			  name: chat.un,
 			  volume: vol
 		  }));
